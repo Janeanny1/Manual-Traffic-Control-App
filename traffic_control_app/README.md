@@ -1,16 +1,56 @@
-# traffic_control_app
+🛑 Manual Traffic Control App
+`
+A Flutter-based traffic direction timer app for use by traffic officers when traffic lights are non-functional. It cycles through 4 directions — North, East, South, and West — giving equal time to each, with clear UI and optional beeps. `
 
-A new Flutter project.
+🚦 Features
+- Auto countdown (45 seconds per direction)
 
-## Getting Started
+- 2-second pause between directions
 
-This project is a starting point for a Flutter application.
+- Audio beep before and after each direction (optional)
 
-A few resources to get you started if this is your first Flutter project:
+- Beautiful and responsive user interface
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Manual skip button for officers to move to next direction
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Works on Android, Web, and Desktop (Windows)
+
+🛠 Built With
+- Flutter
+
+- Dart
+
+- audioplayers for optional beeping sound
+
+📱 Demo
+`Try it live on Netlify:`
+👉 https://whimsical-mochi-da267c.netlify.app/
+
+🚀 Getting Started
+
+🔧 Prerequisites
+- Flutter SDK
+
+- Dart 3.x
+
+- VS Code
+
+📦 Install Dependencies
+`flutter pub get`
+
+▶️ Run the App
+- flutter run -d chrome     # For Web
+- flutter run -d windows    # For Desktop
+- flutter run -d android    # For Android
+
+📦 Build for Deployment
+` flutter build web `
+
+🔔 Notes
+- Browsers block auto-play audio until the user interacts. For web builds, sound is skipped unless triggered by button tap.
+
+- On Windows, you must enable Developer Mode to run with plugins.
+
+📝 License
+`MIT License – free for use, sharing, and modification.`
+

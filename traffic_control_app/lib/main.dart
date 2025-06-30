@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart'; 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() {
@@ -34,7 +34,7 @@ class _TrafficControlHomePageState extends State<TrafficControlHomePage>
   int timeLeft = 45;
   Timer? timer;
 
-  final AudioPlayer _audioPlayer = AudioPlayer(); 
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
@@ -62,29 +62,29 @@ class _TrafficControlHomePageState extends State<TrafficControlHomePage>
         timeLeft--;
         if (timeLeft <= 0) {
           timer.cancel();
-          handleBeepAndSwitch(); 
+          handleBeepAndSwitch();
         }
       });
     });
   }
 
   Future<void> handleBeepAndSwitch() async {
-    await _playBeep();                  
-    await Future.delayed(Duration(seconds: 5)); 
-    await _playBeep();                 
+    await _playBeep();
+    await Future.delayed(Duration(seconds: 5));
+    await _playBeep();
     switchToNextDirection();
-    startTimer();                       
+    startTimer();
   }
 
-Future<void> _playBeep() async {
-  if (kIsWeb) return; 
+  Future<void> _playBeep() async {
+    if (kIsWeb) return;
 
-  try {
-    await _audioPlayer.play(AssetSource('beep.mp3'));
-  } catch (e) {
-    print('Sound error: $e');
+    try {
+      await _audioPlayer.play(AssetSource('beep.mp3'));
+    } catch (e) {
+      print('Sound error: $e');
+    }
   }
-}
 
   void switchToNextDirection() {
     setState(() {
@@ -108,63 +108,75 @@ Future<void> _playBeep() async {
     String currentDirection = directions[currentDirectionIndex];
 
     return Scaffold(
-      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: Text('🚦 Manual Traffic Control'),
         centerTitle: true,
         backgroundColor: Colors.redAccent,
       ),
-      body: Center(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: Container(
-            padding: EdgeInsets.all(20),
-            margin: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black12, blurRadius: 10, spreadRadius: 5)
-              ],
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/kenya_flag.png'),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withOpacity(0.1),
+              BlendMode.darken,
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text('Current Direction',
-                    style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                SizedBox(height: 10),
-                Text(
-                  currentDirection,
-                  style: TextStyle(
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red),
-                ),
-                SizedBox(height: 20),
-                Text('⏱ Time Left: ${timeLeft}s',
-                    style: TextStyle(fontSize: 24)),
-                SizedBox(height: 30),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    switchToNextDirection();
-                    _playBeep(); 
-                    startTimer();
-                  },
-                  icon: Icon(Icons.skip_next),
-                  label: Text('Start Traffic Control'),
-                  style: ElevatedButton.styleFrom(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    backgroundColor: const Color.fromARGB(255, 33, 32, 32),
-                    textStyle: TextStyle(fontSize: 18),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        child: Center(
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: Container(
+              padding: EdgeInsets.all(20),
+              margin: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black12, blurRadius: 10, spreadRadius: 5)
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text('Current Direction',
+                      style: TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 10),
+                  Text(
+                    currentDirection,
+                    style: TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red),
+                  ),
+                  SizedBox(height: 20),
+                  Text('⏱ Time Left: ${timeLeft}s',
+                      style: TextStyle(fontSize: 24)),
+                  SizedBox(height: 30),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      switchToNextDirection();
+                      _playBeep();
+                      startTimer();
+                    },
+                    icon: Icon(Icons.skip_next),
+                    label: Text('Start Traffic Control'),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
+                      backgroundColor:
+                          const Color.fromARGB(255, 33, 32, 32),
+                      textStyle: TextStyle(fontSize: 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

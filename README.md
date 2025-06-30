@@ -1,3 +1,4 @@
+
 🛑 Manual Traffic Control App
 `
 A Flutter-based traffic direction timer app for use by traffic officers when traffic lights are non-functional. It cycles through 4 directions — North, East, South, and West — giving equal time to each, with clear UI and optional beeps. `
